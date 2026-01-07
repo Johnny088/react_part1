@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
-import './App.css';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+export default defineConfig({
+  plugins: [react()],
+  base: '/react_part1/',
+});
+// import './App.css';
 
 function App() {
   const [active, setActive] = useState(null);
@@ -109,4 +115,4 @@ function App() {
   );
 }
 
-export default App;
+// export default App;
