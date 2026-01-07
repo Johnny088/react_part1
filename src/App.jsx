@@ -18,7 +18,7 @@ function App() {
         <div>
           <h1>Dnipro region</h1>
           <p>
-            Dnipro, city, south-central Ukraine. It lies along the Dnieper
+            Dnipro, city, south-central Ukraine.. It lies along the Dnieper
             River, near its confluence with the Samara. The river was
             considerably widened by the construction of a dam about 50 miles (80
             km) downstream. Founded in 1783 as Katerynoslav on the river’s north
