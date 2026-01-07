@@ -94,7 +94,7 @@ function App() {
       {active === 4 && (
         <div>
           <h1>Info</h1>
-          <img src="/images/test1.jpeg" alt="avatar" />
+          <img src="./images/test1.jpeg" alt="avatar" />
           <ul>
             <li>Name: Johnny</li>
             <li>Mnemonic</li>
