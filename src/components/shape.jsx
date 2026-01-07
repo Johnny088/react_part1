@@ -1,5 +1,5 @@
 import './shape';
 
-export const Sprite = ({ size, color, type }) => {
+export const Sprite = ({ sizeWidth, sizeHeight, color, type }) => {
   return <div></div>;
 };
