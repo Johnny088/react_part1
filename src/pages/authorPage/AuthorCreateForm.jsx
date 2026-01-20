@@ -52,15 +52,25 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }));
 
 const AuthorCreateForm = () => {
+  const regexAutor = /^[A-Za-z]{2,}\s[A-Za-z]{3,}$/;
+  const maxYear = new Date().toISOString().split('T')[0];
   const [data, setData] = useState({
     author: '',
     birthDate: '',
     photo: '',
   });
+  const [errors, setErrors] = useState({
+    author: 'Only letters',
+    birthDate: 'Has to be less than or equil the current date',
+  });
+  const isAuthorValid = regexAutor.test(data.author);
+  const isDateValid = maxYear >= data.birthDate;
+  const isFormValid = isAuthorValid && isDateValid;
   const FormSubmitHandle = e => {
     e.preventDefault();
     console.log(data);
   };
+
   return (
     <Box>
       <SignInContainer
@@ -89,7 +99,6 @@ const AuthorCreateForm = () => {
               gap: 2,
             }}
           >
-            {/* {getError('title')} */}
             <FormControl>
               <FormLabel htmlFor="author">Author</FormLabel>
               <TextField
@@ -98,13 +107,18 @@ const AuthorCreateForm = () => {
                 autoComplete="author"
                 fullWidth
                 variant="outlined"
-                onChange={e => setData({ ...data, author: e.target.value })}
-                value={data.author}
+                onChange={e => {
+                  return setData({ ...data, author: e.target.value });
+                }}
               />
             </FormControl>
-            {/* {getError('author')} */}
+            <Box
+              component="p"
+              sx={{ color: 'red', fontWeight: 'bold', fontSize: ['26px'] }}
+            >
+              {errors.author}
+            </Box>
 
-            {/* {getError('genre')} */}
             <FormControl>
               <FormLabel htmlFor="year">Birthday</FormLabel>
               <TextField
@@ -117,8 +131,14 @@ const AuthorCreateForm = () => {
                 onChange={e => setData({ ...data, birthDate: e.target.value })}
                 value={data.birthDate}
               />
-              {/* {getError('year')} */}
             </FormControl>
+            <Box
+              component="p"
+              sx={{ color: 'red', fontWeight: 'bold', fontSize: ['26px'] }}
+            >
+              {errors.birthDate}
+            </Box>
+
             <FormControl>
               <FormLabel htmlFor="cover">Cover</FormLabel>
               <TextField
@@ -131,7 +151,13 @@ const AuthorCreateForm = () => {
                 value={data.photo}
               />
             </FormControl>
-            <Button type="submit" fullWidth variant="contained" color="error">
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="error"
+              disabled={!isFormValid}
+            >
               add
             </Button>
           </Box>
