@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "author": "Тарас Шевченко",
+    "birthDate": "9.03.1814",
+    "photo": "https://shevchenko.ca/images/ts-hub-01-bio.jpg"
+  },
+  {
+    "id": 2,
+    "author": "Леся Українка",
+    "birthDate": "25.02.1871",
+    "photo": "https://th.bing.com/th/id/R.728a8b62557ad31f2310a64cd07cd281?rik=416yulc7daLD6Q&pid=ImgRaw&r=0"
+  },
+  {
+    "id": 3,
+    "author": "Михайло Коцюбинський",
+    "birthDate": "17.09.1864",
+    "photo": "https://alchetron.com/cdn/mykhailo-kotsiubynsky-81d99488-7f52-4a66-a4e0-4e8d613dfa7-resize-750.jpeg"
+  },
+  {
+    "id": 4,
+    "author": "Іван Франко",
+    "birthDate": "27.08.1856",
+    "photo": "https://th.bing.com/th/id/R.962b61b3cd4bcae7c68c8ddf51335300?rik=tKF7fdz7XfVckw&riu=http%3a%2f%2f4.bp.blogspot.com%2f-1RkdfflW7bA%2fVlgY5joE2lI%2fAAAAAAAAJ3g%2f81M1QDS1NIM%2fs1600%2f2011_N7_czerwen__c.jpg&ehk=swWww5gKIPaO1HD4LSk%2b4cRouxKpt6j6vDBZdlRHTkQ%3d&risl=&pid=ImgRaw&r=0"
+  },
+  {
+    "id": 5,
+    "author": "Валер'ян Підмогильний",
+    "birthDate": "2.02.1901",
+    "photo": "https://alchetron.com/cdn/valerian-pidmohylny-5bb92e08-630b-4789-badf-d9817a98ec6-resize-750.jpg"
+  },
+  {
+    "id": 6,
+    "author": "Пантелеймон Куліш",
+    "birthDate": "7.08.1819",
+    "photo": "https://tse4.mm.bing.net/th/id/OIP.cymD8S_OP7iDRviwKrlENwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
+  },
+  {
+    "id": 7,
+    "author": "Іван Нечуй-Левицький",
+    "birthDate": "25.11.1838",
+    "photo": "https://tse3.mm.bing.net/th/id/OIP.ZmyCi3VfjzMNUuU5SfcPUAAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
+  },
+  {
+    "id": 8,
+    "author": "Марія Матіос",
+    "birthDate": "19.12.1959",
+    "photo": "https://2.bp.blogspot.com/-pMCkpnzzKgc/UiOaswNHTJI/AAAAAAAADpg/4_plvYq50pY/s1600/matios.jpg"
+  },
+  {
+    "id": 9,
+    "author": "Сергій Жадан",
+    "birthDate": "23.08.1974",
+    "photo": "https://media.gettyimages.com/id/1435806054/photo/serhiy-zhadan-receives-peace-prize-of-german-book-trade.jpg?s=1024x1024&w=gi&k=20&c=wSgDnQzvU_SzYkLulkZPu9hh5ztlVsAefXqdneSqa8s="
+  },
+  {
+    "id": 10,
+    "author": "Ліна Костенко",
+    "birthDate": "19.03.1930",
+    "photo": "https://ukrainianinstitute.org/wp-content/uploads/2020/03/kostenko-287x300.jpg"
+  },
+  {
+    "id": 11,
+    "author": "Валерій Шевчук",
+    "birthDate": "20.08.1939",
+    "photo": "https://ichef.bbci.co.uk/news/640/amz/worldservice/live/assets/images/2015/11/19/151119152322_valeriy_shevchuk_439x549_valeriyshevchuk_nocredit.jpg"
+  },
+  {
+    "id": 12,
+    "author": "Микола Хвильовий",
+    "birthDate": "13.12.1893",
+    "photo": "https://dityinfo.com/wp-content/uploads/2024/01/mykola-khvyliovyi.jpg"
+  },
+  {
+    "id": 13,
+    "author": "Панас Мирний",
+    "birthDate": "13.05.1849",
+    "photo": "https://tse3.mm.bing.net/th/id/OIP.-RcdqaJ4QFB1SMC84Vkw_wHaL2?rs=1&pid=ImgDetMain&o=7&rm=3"
+  },
+  {
+    "id": 14,
+    "author": "Василь Шкляр",
+    "birthDate": "10.06.1951",
+    "photo": "https://th.bing.com/th/id/R.14ae5dd370964f41eb2f7023bb5a8ab8?rik=SX%2fy1fj%2fSGMavA&pid=ImgRaw&r=0"
+  },
+  {
+    "id": 15,
+    "author": "Іван Багряний",
+    "birthDate": "2.10.1906",
+    "photo": "https://tse1.mm.bing.net/th/id/OIP.XABmDsU14OMOcqXWxWynZwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
+  },
+  {
+    "id": 16,
+    "author": "Софія Андрухович",
+    "birthDate": "17.11.1982",
+    "photo": "https://tse4.mm.bing.net/th/id/OIP.CtAGc0mYBz4bVTWNi3nsLgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
+  },
+  {
+    "id": 17,
+    "author": "Володимир Сосюра",
+    "birthDate": "6.01.1898",
+    "photo": "https://th.bing.com/th/id/R.f4a360cad3e093a7c96d75bf0097c217?rik=L65Tji59bLut9A&pid=ImgRaw&r=0"
+  },
+  {
+    "id": 18,
+    "author": "Олександр Довженко",
+    "birthDate": "10.09.1894",
+    "photo": "https://tse4.mm.bing.net/th/id/OIP.Fj77RbTC41ksGoKxcBjilAHaLH?rs=1&pid=ImgDetMain&o=7&rm=3"
+  },
+  {
+    "id": 19,
+    "author": "Григір Тютюнник",
+    "birthDate": "23.04.1931",
+    "photo": "https://www.pisni.org.ua/files/061/015182_hryhir_tyutyunnyk.jpg"
+  },
+  {
+    "id": 20,
+    "author": "Ольга Кобилянська",
+    "birthDate": "27.11.1863",
+    "photo": "https://alchetron.com/cdn/olha-kobylianska-36924abe-95cd-436b-b639-cec108e6e3a-resize-750.jpeg"
+  }
+]
