@@ -51,7 +51,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
   },
 }));
 
-const AuthorCreateForm = () => {
+const AuthorCreateForm = ({ createCallbackAuthor }) => {
   const regexAutor = /^[A-Za-z]{2,}\s[A-Za-z]{3,}$/;
   const maxYear = new Date().toISOString().split('T')[0];
   const [data, setData] = useState({
@@ -63,12 +63,14 @@ const AuthorCreateForm = () => {
     author: 'Only letters',
     birthDate: 'Has to be less than or equil the current date',
   });
+
   const isAuthorValid = regexAutor.test(data.author);
-  const isDateValid = maxYear >= data.birthDate;
+  const isDateValid = maxYear >= data.birthDate && data.birthDate !== '';
   const isFormValid = isAuthorValid && isDateValid;
   const FormSubmitHandle = e => {
     e.preventDefault();
     console.log(data);
+    createCallbackAuthor(data);
   };
 
   return (
@@ -128,6 +130,7 @@ const AuthorCreateForm = () => {
                 fullWidth
                 type="date"
                 variant="outlined"
+                required
                 onChange={e => setData({ ...data, birthDate: e.target.value })}
                 value={data.birthDate}
               />

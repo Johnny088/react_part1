@@ -12,7 +12,7 @@ function App() {
       <Navbar />
       {/* <BookListPage /> */}
       <AuthorPage />
-      <AuthorCreateForm />
+      {/* <AuthorCreateForm createCallbackAuthor={addNewAuthor} /> */}
     </>
   );
 }
