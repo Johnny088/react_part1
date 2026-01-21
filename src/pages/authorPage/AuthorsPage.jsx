@@ -8,6 +8,7 @@ const AuthorsPage = () => {
   const [authorsList, setAuthorsList] = useState([]);
 
   useEffect(() => {
+    console.log('use effect is started');
     const localData = localStorage.getItem('authors');
     if (localData) {
       setAuthorsList(JSON.parse(localData));
@@ -17,6 +18,9 @@ const AuthorsPage = () => {
     }
   }, []);
   const addNewAuthor = data => {
+    data.id = authorsList.reduce((acc, item) => {
+      return Math.max(acc, item.id) + 1;
+    }, 0);
     let temp = JSON.parse(localStorage.getItem('authors'));
     temp.push(data);
     setAuthorsList(temp);
