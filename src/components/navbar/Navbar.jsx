@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
-
+import { Link } from 'react-router';
 const pages = ['Книги', 'Автори'];
 const settings = ['Профіль', 'Вийти'];
 
@@ -126,22 +126,34 @@ const Navbar = () => {
               display: { xs: 'none', md: 'flex' },
             }}
           >
-            {pages.map(page => (
+            <Link to="/Authors">
               <Button
-                key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                Authors
               </Button>
-            ))}
+            </Link>
+            <Link to="/Books">
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Books
+              </Button>
+            </Link>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+            <Link to="/login">
+              <Button onClick={handleCloseNavMenu} sx={{ color: 'white' }}>
+                Login
+              </Button>
+            </Link>
+            <Link to="/register">
+              <Button onClick={handleCloseNavMenu} sx={{ color: 'white' }}>
+                Register
+              </Button>
+            </Link>
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
