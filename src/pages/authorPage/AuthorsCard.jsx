@@ -3,8 +3,14 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-export default function AuthorsCard({ item }) {
+export default function AuthorsCard({ item, deleteCallBack }) {
+  const deleteClickHandler = () => {
+    console.log('handler'); // =========================================> temp
+    console.log(item.id);
+    deleteCallBack(item.id);
+  };
   return (
     <Card sx={{ maxWidth: 345, height: '100%' }}>
       <CardActionArea>
@@ -26,6 +32,7 @@ export default function AuthorsCard({ item }) {
           </Typography>
         </CardContent>
       </CardActionArea>
+      <DeleteForeverIcon color="error" onClick={deleteClickHandler} />
     </Card>
   );
 }

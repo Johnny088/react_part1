@@ -17,6 +17,7 @@ const AuthorsPage = () => {
       localStorage.setItem('authors', JSON.stringify(author));
     }
   }, []);
+  // ----------------------------- adding a new book --------------------------------------
   const addNewAuthor = data => {
     data.id = authorsList.reduce((acc, item) => {
       return Math.max(acc, item.id) + 1;
@@ -26,12 +27,21 @@ const AuthorsPage = () => {
     setAuthorsList(temp);
     localStorage.setItem('authors', JSON.stringify(temp));
   };
+  // ------------------------- delete CallBack ----------------------------
+  const deleteAuthor = id => {
+    console.log(authorsList);
+    const data = authorsList.filter(a => a.id !== id);
+    console.log(data); //------------------------------------temp
+    setAuthorsList(data);
+    localStorage.setItem('authors', JSON.stringify(data));
+  };
+
   return (
     <Grid container spacing={2} mx={'100px'} my={'50px'}>
       {authorsList.map(a => {
         return (
           <Grid size={3} key={a.id}>
-            <AuthorsCard item={a} />
+            <AuthorsCard item={a} deleteCallBack={deleteAuthor} />
           </Grid>
         );
       })}
