@@ -32,7 +32,11 @@ export default function AuthorsCard({ item, deleteCallBack }) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <DeleteForeverIcon color="error" onClick={deleteClickHandler} />
+      <DeleteForeverIcon
+        color="error"
+        onClick={deleteClickHandler}
+        sx={{ cursor: 'pointer' }}
+      />
     </Card>
   );
 }
