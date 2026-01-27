@@ -45,12 +45,12 @@ const AuthorsPage = () => {
           </Grid>
         );
       })}
-      <Grid container width="100%" spacing={2} justifyContent={'center'}>
+      {/* <Grid container width="100%" spacing={2} justifyContent={'center'}>
         <Grid size={12}>
           <AuthorCreateForm createCallbackAuthor={addNewAuthor} />
         </Grid>
       </Grid>
-      ;
+      ; */}
     </Grid>
   );
 };

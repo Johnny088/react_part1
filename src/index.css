@@ -1,3 +1,6 @@
 :root {
   background: lightblue;
 }
+a {
+  text-decoration: none;
+}
