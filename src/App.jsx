@@ -7,6 +7,7 @@ import AuthorCreateForm from './pages/authorPage/AuthorCreateForm';
 import { Routes, Route } from 'react-router';
 import NotFoundPage from './pages/notFoundPage/NotFoundPage';
 import MainPage from './pages/mainPage/MainPage';
+import LoginPage from './pages/registration/loginPage/LoginPage';
 
 function App() {
   // const [active, setActive] = useState(1);
@@ -18,6 +19,7 @@ function App() {
         <Route path="/books" element={<BookListPage />} />
         <Route path="/authors" element={<AuthorPage />} />
         <Route path="/authors/create" element={<AuthorCreateForm />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>

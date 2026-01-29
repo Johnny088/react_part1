@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -51,7 +52,8 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
   },
 }));
 
-const AuthorCreateForm = ({ createCallbackAuthor }) => {
+const AuthorCreateForm = () => {
+  const navigate = useNavigate();
   const regexAutor = /^[A-Za-z]{2,}\s[A-Za-z]{3,}$/;
   const maxYear = new Date().toISOString().split('T')[0];
   const [data, setData] = useState({
@@ -70,9 +72,19 @@ const AuthorCreateForm = ({ createCallbackAuthor }) => {
   const FormSubmitHandle = e => {
     e.preventDefault();
     console.log(data);
-    createCallbackAuthor(data);
+    addNewAuthor(data);
   };
-
+  // ------------------add author -----------------------------
+  function addNewAuthor(data) {
+    let temp = JSON.parse(localStorage.getItem('authors'));
+    data.id = temp.reduce((acc, item) => {
+      return Math.max(acc, item.id) + 1;
+    }, 0);
+    temp.push(data);
+    localStorage.setItem('authors', JSON.stringify(temp));
+    navigate('/authors');
+  }
+  // ----------------------------------------------------------
   return (
     <Box>
       <SignInContainer
