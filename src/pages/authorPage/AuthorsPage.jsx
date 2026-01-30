@@ -2,7 +2,6 @@ import author from './Authors.json';
 import AuthorsCard from './AuthorsCard';
 import { Grid } from '@mui/material';
 import { useState, useEffect } from 'react';
-import AuthorCreateForm from './AuthorCreateForm';
 import IconButton from '@mui/material/IconButton';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
 import { Link } from 'react-router';
@@ -22,16 +21,7 @@ const AuthorsPage = () => {
       localStorage.setItem('authors', JSON.stringify(author));
     }
   }, []);
-  // ----------------------------- adding a new book --------------------------------------
-  const addNewAuthor = data => {
-    data.id = authorsList.reduce((acc, item) => {
-      return Math.max(acc, item.id) + 1;
-    }, 0);
-    let temp = JSON.parse(localStorage.getItem('authors'));
-    temp.push(data);
-    setAuthorsList(temp);
-    localStorage.setItem('authors', JSON.stringify(temp));
-  };
+
   // ------------------------- delete CallBack ----------------------------
   const deleteAuthor = id => {
     console.log(authorsList);

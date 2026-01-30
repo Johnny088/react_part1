@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './App.css';
 import Navbar from './components/navbar/Navbar';
 import BookListPage from './pages/booksPage/BookListPage';
@@ -8,9 +7,9 @@ import { Routes, Route } from 'react-router';
 import NotFoundPage from './pages/notFoundPage/NotFoundPage';
 import MainPage from './pages/mainPage/MainPage';
 import LoginPage from './pages/registration/loginPage/LoginPage';
+import RegisterPage from './pages/registration/registerPage/RegisterPage';
 
 function App() {
-  // const [active, setActive] = useState(1);
   return (
     <>
       <Navbar />
@@ -20,6 +19,7 @@ function App() {
         <Route path="/authors" element={<AuthorPage />} />
         <Route path="/authors/create" element={<AuthorCreateForm />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>

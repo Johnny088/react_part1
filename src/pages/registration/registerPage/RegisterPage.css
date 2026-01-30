@@ -1,0 +1,16 @@
+input {
+  height: 40px;
+}
+
+.registerBtn {
+  padding: 10px 0;
+  cursor: pointer;
+  align-items: center;
+  border-radius: 8px;
+  background: linear-gradient(
+    45deg,
+    rgb(128, 228, 128),
+    rgb(44, 107, 44),
+    rgb(61, 126, 61)
+  );
+}
