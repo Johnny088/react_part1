@@ -1,12 +1,7 @@
 import BookCard from './BookCard';
-import booksJson from './books.json';
-// import booksJson from './books.json';
 import { Box, Grid, IconButton, CircularProgress } from '@mui/material';
-// import { Box, Grid } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useState, useEffect } from 'react';
-// import BookCard from './BookCard';
-// import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Link } from 'react-router';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';

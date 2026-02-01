@@ -15,6 +15,7 @@ import { Link } from 'react-router';
 import { Rating } from '@mui/material';
 
 const BookCard = ({ book, deleteCallback, favoriteCallback }) => {
+  // if (!book) return null; //           =============================================>>> temp
   const [isFavorite, setIsFavorite] = useState(book.isFavorite);
 
   const setFavoriteHandle = () => {
@@ -49,17 +50,19 @@ const BookCard = ({ book, deleteCallback, favoriteCallback }) => {
         title={book.title}
         subheader={book.author}
       />
-      <CardMedia
-        sx={{ objectFit: 'contain' }}
-        component="img"
-        height="350"
-        image={
-          book.image
-            ? book.image
-            : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
-        }
-        alt={book.title}
-      />
+      <Link to={`/books/review/${book.id}`}>
+        <CardMedia
+          sx={{ objectFit: 'contain' }}
+          component="img"
+          height="350"
+          image={
+            book.image
+              ? book.image
+              : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
+          }
+          alt={book.title}
+        />
+      </Link>
       <CardContent sx={{ textAlign: 'center' }}>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           <Rating readOnly max={10} value={book.rating * 2} />
