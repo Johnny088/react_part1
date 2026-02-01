@@ -68,12 +68,12 @@ const AuthorUpdateForm = () => {
 
   function validate() {
     let check = true;
-    const validErrors = [];
+    const validErrors = {};
     if (!currentData.name) {
       validErrors.name = 'you need to type a pseudonim at least';
       check = false;
     }
-    if (!maxYear >= currentData.birth_date) {
+    if (maxYear < currentData.birth_date) {
       validErrors.birth_date = 'the birthdste is wrong';
       check = false;
     }
@@ -113,11 +113,6 @@ const AuthorUpdateForm = () => {
       const response = await axios.get(`${authorUrlId}/${id}`);
       if (response.status === 200) {
         const { data } = response;
-        console.log(data);
-        console.log(data.data.name);
-        console.log(data.data.birth_date);
-        console.log(data.data.image);
-        console.log(data.data.id);
         setData({
           name: data.data.name,
           birth_date: data.data.birth_date,

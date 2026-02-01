@@ -59,22 +59,37 @@ const AuthorCreateForm = () => {
   const [error, setErrors] = useState({});
   const [data, setData] = useState({
     name: '',
-    birth_date: '',
+    birth_date: new Date().toISOString().split('T')[0],
     image: '',
   });
   // ---------------------------- validate ------------------------------------------------------
-  // // const regexAutor = /^[A-Za-z]{2,}\s[A-Za-z]{3,}$/;
-  // const maxYear = new Date().toISOString().split('T')[0];
+  const maxYear = new Date().toISOString().split('T')[0];
 
-  // // const isAuthorValid = regexAutor.test(data.name);
-  // const isDateValid = maxYear >= data.birthDate && data.birth_date !== '';
-  // const isFormValid = isAuthorValid && isDateValid;
-
+  function validate() {
+    let check = true;
+    const validErrors = {};
+    if (!data.name) {
+      validErrors.name = 'you need to type a pseudonim at least';
+      check = false;
+    }
+    if (maxYear < data.birth_date) {
+      validErrors.birth_date = 'the birthdste is wrong';
+      check = false;
+    }
+    return { status: check, errors: validErrors };
+  }
   // -----------------------------------------------submit ----------------------------------------
   const FormSubmitHandle = async e => {
     e.preventDefault();
+    const isValid = validate();
+    if (!isValid.status) {
+      setErrors(isValid.errors);
+      return;
+    } else {
+      setErrors({});
+    }
     const authorsUrl = import.meta.env.VITE_AUTHORS_URL;
-    const response = await axios.patch(authorsUrl);
+    const response = await axios.post(authorsUrl, data);
     if (response.status === 200) {
       navigate('/authors');
     }
@@ -89,17 +104,17 @@ const AuthorCreateForm = () => {
     ) : null;
   };
   // --------------------------------------------useEffect -------------------
-  useEffect(() => {
-    const getAuthor = async () => {
-      const authorUrlId = import.meta.env.VITE_AUTHORS_URL;
-      const response = await axios.get(`${authorUrlId}/${id}`);
-      if (response === 200) {
-        const { data } = response;
-        setData(data);
-      }
-    };
-    getAuthor();
-  }, []);
+  // useEffect(() => {
+  //   const getAuthor = async () => {
+  //     const authorUrlId = import.meta.env.VITE_AUTHORS_URL;
+  //     const response = await axios.get(`${authorUrlId}/${id}`);
+  //     if (response === 200) {
+  //       const { data } = response;
+  //       setData(data);
+  //     }
+  //   };
+  //   getAuthor();
+  // }, []);
 
   return (
     <Box>
@@ -140,14 +155,17 @@ const AuthorCreateForm = () => {
                 onChange={e => {
                   return setData({ ...data, name: e.target.value });
                 }}
+                onBlur={() => {
+                  const err = validate();
+                  setErrors(err.errors);
+                }}
               />
+              {getError('name')}
             </FormControl>
             <Box
               component="p"
               sx={{ color: 'red', fontWeight: 'bold', fontSize: ['26px'] }}
-            >
-              {/* {errors.name} */}
-            </Box>
+            ></Box>
 
             <FormControl>
               <FormLabel htmlFor="year">Birthday</FormLabel>
@@ -161,14 +179,17 @@ const AuthorCreateForm = () => {
                 required
                 onChange={e => setData({ ...data, birth_date: e.target.value })}
                 value={data.birth_date}
+                onBlur={() => {
+                  const err = validate();
+                  setErrors(err.errors);
+                }}
               />
+              {getError('birth_date')}
             </FormControl>
             <Box
               component="p"
               sx={{ color: 'red', fontWeight: 'bold', fontSize: ['26px'] }}
-            >
-              {/* {errors.birth_date} */}
-            </Box>
+            ></Box>
 
             <FormControl>
               <FormLabel htmlFor="cover">Cover</FormLabel>
@@ -182,13 +203,7 @@ const AuthorCreateForm = () => {
                 value={data.image}
               />
             </FormControl>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="error"
-              // disabled={!isFormValid}
-            >
+            <Button type="submit" fullWidth variant="contained" color="error">
               add
             </Button>
           </Box>
