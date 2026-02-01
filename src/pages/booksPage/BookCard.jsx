@@ -7,14 +7,25 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import { Box } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
+import { Link } from 'react-router';
+import { Rating } from '@mui/material';
 
-const BookCard = ({ book }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+const BookCard = ({ book, deleteCallback, favoriteCallback }) => {
+  const [isFavorite, setIsFavorite] = useState(book.isFavorite);
+
+  const setFavoriteHandle = () => {
+    const favoriteState = !isFavorite;
+    setIsFavorite(favoriteState);
+    favoriteCallback(book.id, favoriteState);
+  };
+
+  const deleteClickHandle = async () => {
+    await deleteCallback(book.id);
+  };
 
   return (
     <Card sx={{ maxWidth: 345, height: '100%' }}>
@@ -27,8 +38,12 @@ const BookCard = ({ book }) => {
           ></Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
+          <IconButton
+            onClick={deleteClickHandle}
+            color="error"
+            aria-label="settings"
+          >
+            <DeleteIcon />
           </IconButton>
         }
         title={book.title}
@@ -39,28 +54,30 @@ const BookCard = ({ book }) => {
         component="img"
         height="350"
         image={
-          book.cover_url
-            ? book.cover_url
+          book.image
+            ? book.image
             : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
         }
         alt={book.title}
       />
-      <CardContent>
+      <CardContent sx={{ textAlign: 'center' }}>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {book.genre}, {book.year}р
+          <Rating readOnly max={10} value={book.rating * 2} />
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton
-          onClick={() => setIsFavorite(!isFavorite)}
+          onClick={setFavoriteHandle}
           color={isFavorite ? 'error' : ''}
           aria-label="add to favorites"
         >
           <FavoriteIcon />
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
+        <Link to={`update/${book.id}`}>
+          <IconButton color="success" aria-label="share">
+            <EditIcon />
+          </IconButton>
+        </Link>
       </CardActions>
     </Card>
   );

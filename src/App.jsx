@@ -8,6 +8,7 @@ import NotFoundPage from './pages/notFoundPage/NotFoundPage';
 import MainPage from './pages/mainPage/MainPage';
 import LoginPage from './pages/registration/loginPage/LoginPage';
 import RegisterPage from './pages/registration/registerPage/RegisterPage';
+import AuthorUpdateForm from './pages/authorPage/AuthorsUpdateForm';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/books" element={<BookListPage />} />
         <Route path="/authors" element={<AuthorPage />} />
         <Route path="/authors/create" element={<AuthorCreateForm />} />
+        <Route path="/authors/update/:id" element={<AuthorUpdateForm />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="*" element={<NotFoundPage />} />

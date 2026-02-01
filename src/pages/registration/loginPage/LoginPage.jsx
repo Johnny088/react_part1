@@ -13,9 +13,9 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import ForgotPassword from '../components/ForgotPassword';
+import ForgotPassword from './../components/ForgotPassword';
 import { Link, useNavigate } from 'react-router';
-import { GoogleIcon, FacebookIcon } from '../components/CustomIcons';
+import { GoogleIcon, FacebookIcon } from './../components/CustomIcons';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -90,7 +90,20 @@ const LoginPage = () => {
       setErrors({});
     }
 
-    localStorage.setItem('auth', JSON.stringify(cred));
+    const localData = localStorage.getItem('users');
+    if (!localData) {
+      navigate('/register');
+    }
+    const users = JSON.parse(localData);
+
+    const user = users.find(u => u.email === cred.email);
+
+    if (!user || cred.password !== user.password) {
+      alert('Пошта або пароль вказані невірно');
+      return;
+    }
+
+    localStorage.setItem('auth', JSON.stringify(user));
     login();
     navigate('/', { replace: true });
   };

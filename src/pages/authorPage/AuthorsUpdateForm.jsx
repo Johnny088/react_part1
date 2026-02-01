@@ -53,11 +53,11 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
   },
 }));
 //               ------------------------------------ start -------------------------------------
-const AuthorCreateForm = () => {
+const AuthorUpdateForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [error, setErrors] = useState({});
-  const [data, setData] = useState({
+  const [currentData, setData] = useState({
     name: '',
     birth_date: '',
     image: '',
@@ -73,11 +73,12 @@ const AuthorCreateForm = () => {
   // -----------------------------------------------submit ----------------------------------------
   const FormSubmitHandle = async e => {
     e.preventDefault();
-    const authorsUrl = import.meta.env.VITE_AUTHORS_URL;
-    const response = await axios.patch(authorsUrl);
-    if (response.status === 200) {
-      navigate('/authors');
-    }
+    // const authorsUrl = import.meta.env.VITE_AUTHORS_URL;
+    // const response = await axios.patch(authorsUrl);
+    // if (response.status === 200) {
+    //   navigate('/authors');
+    // }
+    console.log('hello');
   };
 
   // ----------------------------------------- getting errors ---------------------------------------
@@ -93,9 +94,17 @@ const AuthorCreateForm = () => {
     const getAuthor = async () => {
       const authorUrlId = import.meta.env.VITE_AUTHORS_URL;
       const response = await axios.get(`${authorUrlId}/${id}`);
-      if (response === 200) {
+      if (response.status === 200) {
         const { data } = response;
-        setData(data);
+        console.log(data);
+        setData({
+          name: data.name,
+          birth_date: data.birth_date,
+          image: data.image,
+        });
+        console.log(
+          `set data ==> ${currentData.name} ${currentData.birth_date} ${currentData.image}`,
+        );
       }
     };
     getAuthor();
@@ -130,15 +139,16 @@ const AuthorCreateForm = () => {
             }}
           >
             <FormControl>
-              <FormLabel htmlFor="author">Author</FormLabel>
+              <FormLabel htmlFor="name">Author</FormLabel>
               <TextField
-                name="author"
+                name="name"
                 placeholder="Author"
                 autoComplete="author"
                 fullWidth
                 variant="outlined"
+                value={currentData.name}
                 onChange={e => {
-                  return setData({ ...data, name: e.target.value });
+                  return setData({ ...currentData, name: e.target.value });
                 }}
               />
             </FormControl>
@@ -150,17 +160,19 @@ const AuthorCreateForm = () => {
             </Box>
 
             <FormControl>
-              <FormLabel htmlFor="year">Birthday</FormLabel>
+              <FormLabel htmlFor="birth_date">Birthday</FormLabel>
               <TextField
-                name="year"
+                name="birth_date"
                 placeholder="birthday year"
                 autoComplete="year"
                 fullWidth
                 type="date"
                 variant="outlined"
                 required
-                onChange={e => setData({ ...data, birth_date: e.target.value })}
-                value={data.birth_date}
+                value={currentData.birth_date}
+                onChange={e =>
+                  setData({ ...currentData, birth_date: e.target.value })
+                }
               />
             </FormControl>
             <Box
@@ -178,8 +190,10 @@ const AuthorCreateForm = () => {
                 autoComplete="cover"
                 fullWidth
                 variant="outlined"
-                onChange={e => setData({ ...data, image: e.target.value })}
-                value={data.image}
+                value={currentData.image}
+                onChange={e =>
+                  setData({ ...currentData, image: e.target.value })
+                }
               />
             </FormControl>
             <Button
@@ -197,4 +211,4 @@ const AuthorCreateForm = () => {
     </Box>
   );
 };
-export default AuthorCreateForm;
+export default AuthorUpdateForm;
