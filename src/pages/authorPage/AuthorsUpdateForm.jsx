@@ -59,26 +59,42 @@ const AuthorUpdateForm = () => {
   const [error, setErrors] = useState({});
   const [currentData, setData] = useState({
     name: '',
-    birth_date: '',
+    birth_date: new Date().toISOString().split('T')[0],
     image: '',
+    id: -1,
   });
   // ---------------------------- validate ------------------------------------------------------
-  // // const regexAutor = /^[A-Za-z]{2,}\s[A-Za-z]{3,}$/;
-  // const maxYear = new Date().toISOString().split('T')[0];
+  const maxYear = new Date().toISOString().split('T')[0];
 
-  // // const isAuthorValid = regexAutor.test(data.name);
-  // const isDateValid = maxYear >= data.birthDate && data.birth_date !== '';
-  // const isFormValid = isAuthorValid && isDateValid;
-
+  function validate() {
+    let check = true;
+    const validErrors = [];
+    if (!currentData.name) {
+      validErrors.name = 'you need to type a pseudonim at least';
+      check = false;
+    }
+    if (!maxYear >= currentData.birth_date) {
+      validErrors.birth_date = 'the birthdste is wrong';
+      check = false;
+    }
+    return { status: check, errors: validErrors };
+  }
   // -----------------------------------------------submit ----------------------------------------
   const FormSubmitHandle = async e => {
     e.preventDefault();
-    // const authorsUrl = import.meta.env.VITE_AUTHORS_URL;
-    // const response = await axios.patch(authorsUrl);
-    // if (response.status === 200) {
-    //   navigate('/authors');
-    // }
-    console.log('hello');
+    const isValid = validate();
+    if (!isValid.status) {
+      setErrors(isValid.errors);
+      return;
+    } else {
+      setErrors({});
+    }
+
+    const authorsUrl = import.meta.env.VITE_AUTHORS_URL;
+    const response = await axios.put(authorsUrl, currentData);
+    if (response.status === 200) {
+      navigate('/authors');
+    }
   };
 
   // ----------------------------------------- getting errors ---------------------------------------
@@ -89,6 +105,7 @@ const AuthorUpdateForm = () => {
       </Typography>
     ) : null;
   };
+
   // --------------------------------------------useEffect -------------------
   useEffect(() => {
     const getAuthor = async () => {
@@ -97,14 +114,16 @@ const AuthorUpdateForm = () => {
       if (response.status === 200) {
         const { data } = response;
         console.log(data);
+        console.log(data.data.name);
+        console.log(data.data.birth_date);
+        console.log(data.data.image);
+        console.log(data.data.id);
         setData({
-          name: data.name,
-          birth_date: data.birth_date,
-          image: data.image,
+          name: data.data.name,
+          birth_date: data.data.birth_date,
+          image: data.data.image,
+          id: data.data.id,
         });
-        console.log(
-          `set data ==> ${currentData.name} ${currentData.birth_date} ${currentData.image}`,
-        );
       }
     };
     getAuthor();
@@ -150,14 +169,17 @@ const AuthorUpdateForm = () => {
                 onChange={e => {
                   return setData({ ...currentData, name: e.target.value });
                 }}
+                onBlur={() => {
+                  const err = validate();
+                  setErrors(err.errors);
+                }}
               />
+              {getError('name')}
             </FormControl>
             <Box
               component="p"
               sx={{ color: 'red', fontWeight: 'bold', fontSize: ['26px'] }}
-            >
-              {/* {errors.name} */}
-            </Box>
+            ></Box>
 
             <FormControl>
               <FormLabel htmlFor="birth_date">Birthday</FormLabel>
@@ -173,14 +195,17 @@ const AuthorUpdateForm = () => {
                 onChange={e =>
                   setData({ ...currentData, birth_date: e.target.value })
                 }
+                onBlur={() => {
+                  const err = validate();
+                  setErrors(err.errors);
+                }}
               />
+              {getError('birth-date')}
             </FormControl>
             <Box
               component="p"
               sx={{ color: 'red', fontWeight: 'bold', fontSize: ['26px'] }}
-            >
-              {/* {errors.birth_date} */}
-            </Box>
+            ></Box>
 
             <FormControl>
               <FormLabel htmlFor="cover">Cover</FormLabel>
@@ -196,13 +221,7 @@ const AuthorUpdateForm = () => {
                 }
               />
             </FormControl>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="error"
-              // disabled={!isFormValid}
-            >
+            <Button type="submit" fullWidth variant="contained" color="error">
               add
             </Button>
           </Box>
