@@ -5,8 +5,13 @@ const initState = {
 
 export const authorReducer = (state = initState, action) => {
   switch (action.type) {
-    case 'loadBooks':
+    case 'loadAuthors':
       return { ...state, isLoaded: true, authors: action.payload };
+    case 'removeAuthor':
+      return {
+        ...state,
+        authors: state.authors.filter(a => a.id != action.payload),
+      };
     default:
       return state;
   }
