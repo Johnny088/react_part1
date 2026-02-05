@@ -10,6 +10,7 @@ import { styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -54,6 +55,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }));
 //               ------------------------------------ start -------------------------------------
 const AuthorCreateForm = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
   const [error, setErrors] = useState({});
@@ -88,10 +90,15 @@ const AuthorCreateForm = () => {
     } else {
       setErrors({});
     }
-    const authorsUrl = import.meta.env.VITE_AUTHORS_URL;
-    const response = await axios.post(authorsUrl, data);
-    if (response.status === 200) {
-      navigate('/authors');
+    try {
+      const authorsUrl = import.meta.env.VITE_AUTHORS_URL;
+      const response = await axios.post(authorsUrl, data);
+      if (response.status === 200) {
+        dispatch({ type: 'addNewAuthor', payload: data });
+        navigate('/authors');
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

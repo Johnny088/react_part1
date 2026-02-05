@@ -15,8 +15,8 @@ export default function AuthorsCard({ item }) {
   const deleteClickHandler = async () => {
     const authorsUrl = import.meta.env.VITE_AUTHORS_URL;
     try {
-      await axios.delete(`${authorsUrl}/${id}`);
-      dispatch({ type: 'loadAuthors', payload: authorData });
+      await axios.delete(`${authorsUrl}/${item.id}`);
+      dispatch({ type: 'removeAuthor', payload: item.id });
     } catch (error) {
       console.log(error);
     }

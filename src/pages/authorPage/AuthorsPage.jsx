@@ -16,7 +16,7 @@ const AuthorsPage = () => {
   // --------------------------------------------fetch -----------------------------
   async function fetchAuthors() {
     const authorsUrl = import.meta.env.VITE_AUTHORS_URL;
-    const pageCount = 20;
+    const pageCount = 100;
     const page = 1;
     const url = `${authorsUrl}?page_size=${pageCount}&page=${page}`;
     if (!isLoaded) {
@@ -36,13 +36,6 @@ const AuthorsPage = () => {
   useEffect(() => {
     fetchAuthors();
   }, []);
-  // ------------------------- delete CallBack ----------------------------
-  // const deleteAuthor = id => {
-  //   const data = authorsList.filter(a => a.id !== id);
-  //   console.log(data); //------------------------------------temp
-  //   setAuthorsList(data);
-  //   localStorage.setItem('authors', JSON.stringify(data));
-  // };
   if (!isLoaded) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
