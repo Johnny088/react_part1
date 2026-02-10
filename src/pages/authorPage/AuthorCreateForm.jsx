@@ -61,11 +61,13 @@ const AuthorCreateForm = () => {
   const [error, setErrors] = useState({});
   const [data, setData] = useState({
     name: '',
-    birth_date: new Date().toISOString().split('T')[0],
+    // birth_date: new Date().toISOString().split('T')[0],
+    birth_date: new Date().toISOString(),
     image: '',
   });
   // ---------------------------- validate ------------------------------------------------------
-  const maxYear = new Date().toISOString().split('T')[0];
+  // const maxYear = new Date().toISOString().split('T')[0];
+  const maxYear = new Date().toISOString();
 
   function validate() {
     let check = true;
