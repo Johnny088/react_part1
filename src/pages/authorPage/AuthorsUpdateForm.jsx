@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { useAction } from '../../store/hooks/useAction';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -55,8 +56,8 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }));
 //               ------------------------------------ start -------------------------------------
 const AuthorUpdateForm = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { updateAuthor } = useAction();
   const { id } = useParams();
   const [error, setErrors] = useState({});
   const [currentData, setData] = useState({
@@ -92,12 +93,14 @@ const AuthorUpdateForm = () => {
       setErrors({});
     }
 
-    const authorsUrl = import.meta.env.VITE_AUTHORS_URL;
-    const response = await axios.put(authorsUrl, currentData);
-    if (response.status === 200) {
-      dispatch({ type: 'updateAuthor', payload: currentData });
-      navigate('/authors');
-    }
+    // const authorsUrl = import.meta.env.VITE_AUTHORS_URL;
+    // const response = await axios.put(authorsUrl, currentData);
+    // if (response.status === 200) {
+    //   dispatch({ type: 'updateAuthor', payload: currentData });
+    //   navigate('/authors');
+    // }
+    updateAuthor(currentData);
+    navigate('/authors');
   };
 
   // ----------------------------------------- getting errors ---------------------------------------

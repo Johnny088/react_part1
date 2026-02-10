@@ -7,10 +7,11 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { useAction } from '../../store/hooks/useAction';
+import { useState } from 'react';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -55,19 +56,18 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }));
 //               ------------------------------------ start -------------------------------------
 const AuthorCreateForm = () => {
+  const { createAuthor } = useAction();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
   const [error, setErrors] = useState({});
   const [data, setData] = useState({
     name: '',
-    // birth_date: new Date().toISOString().split('T')[0],
-    birth_date: new Date().toISOString(),
+    birth_date: new Date().toISOString().split('T')[0],
     image: '',
   });
   // ---------------------------- validate ------------------------------------------------------
-  // const maxYear = new Date().toISOString().split('T')[0];
-  const maxYear = new Date().toISOString();
+  const maxYear = new Date().toISOString().split('T')[0];
 
   function validate() {
     let check = true;
@@ -92,16 +92,8 @@ const AuthorCreateForm = () => {
     } else {
       setErrors({});
     }
-    try {
-      const authorsUrl = import.meta.env.VITE_AUTHORS_URL;
-      const response = await axios.post(authorsUrl, data);
-      if (response.status === 200) {
-        dispatch({ type: 'addNewAuthor', payload: data });
-        navigate('/authors');
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    createAuthor(data);
+    navigate('/authors');
   };
 
   // ----------------------------------------- getting errors ---------------------------------------
@@ -112,18 +104,6 @@ const AuthorCreateForm = () => {
       </Typography>
     ) : null;
   };
-  // --------------------------------------------useEffect -------------------
-  // useEffect(() => {
-  //   const getAuthor = async () => {
-  //     const authorUrlId = import.meta.env.VITE_AUTHORS_URL;
-  //     const response = await axios.get(`${authorUrlId}/${id}`);
-  //     if (response === 200) {
-  //       const { data } = response;
-  //       setData(data);
-  //     }
-  //   };
-  //   getAuthor();
-  // }, []);
 
   return (
     <Box>

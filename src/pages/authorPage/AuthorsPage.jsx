@@ -8,33 +8,14 @@ import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useAction } from '../../store/hooks/useAction';
 
 const AuthorsPage = () => {
   const { isAuth, user } = useAuth();
-  const dispatch = useDispatch();
+  const { loadAuthors } = useAction();
   const { authors, isLoaded } = useSelector(state => state.author); //root reducer
-  // --------------------------------------------fetch -----------------------------
-  async function fetchAuthors() {
-    const authorsUrl = import.meta.env.VITE_AUTHORS_URL;
-    const pageCount = 100;
-    const page = 1;
-    const url = `${authorsUrl}?page_size=${pageCount}&page=${page}`;
-    if (!isLoaded) {
-      const response = await axios.get(url);
-      const { data, status } = response;
-      if (status === 200) {
-        const authorData = [];
-        for (const author of data.data.items) {
-          authorData.push(author);
-        }
-        dispatch({ type: 'loadAuthors', payload: authorData });
-      } else {
-        console.log('something went wrong');
-      }
-    }
-  }
   useEffect(() => {
-    fetchAuthors();
+    loadAuthors();
   }, []);
   if (!isLoaded) {
     return (

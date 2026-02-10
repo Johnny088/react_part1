@@ -7,19 +7,12 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Link } from 'react-router';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useAction } from '../../store/hooks/useAction';
 
 export default function AuthorsCard({ item }) {
-  const dispatch = useDispatch();
+  const { deleteAuthor } = useAction();
   const deleteClickHandler = async () => {
-    const authorsUrl = import.meta.env.VITE_AUTHORS_URL;
-    try {
-      await axios.delete(`${authorsUrl}/${item.id}`);
-      dispatch({ type: 'removeAuthor', payload: item.id });
-    } catch (error) {
-      console.log(error);
-    }
+    deleteAuthor(item.id);
   };
   return (
     <Card sx={{ maxWidth: 345, height: '100%' }}>
