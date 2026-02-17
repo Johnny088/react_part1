@@ -1,6 +1,10 @@
 import CarCard from './CarCard';
+import axios from 'axios';
 
 export default CarsPage = () => {
+  async function fetchCars(){
+    const baseUrl = 
+  }
   return (
     <Grid container spacing={2} mx={'100px'} my={'50px'}>
       {authors.map(a => {
