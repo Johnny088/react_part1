@@ -1,10 +1,10 @@
-import CarCard from './pages/carsPages/CarCard';
+import CarsPage from './pages/carsPages/CarsPage';
 import './App.css';
 
 function App() {
   return (
     <>
-      <CarCard />
+      <CarsPage />
     </>
   );
 }

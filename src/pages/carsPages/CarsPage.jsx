@@ -1,16 +1,27 @@
+import { Grid, IconButton, Box } from '@mui/material';
 import CarCard from './CarCard';
 import axios from 'axios';
-
-export default CarsPage = () => {
-  async function fetchCars(){
-    const baseUrl = 
+import { useState, useEffect } from 'react';
+import AddReactionIcon from '@mui/icons-material/AddReaction';
+export default function CarsPage() {
+  const [cars, setCars] = useState([]);
+  const baseUrl = `https://pd411.somee.com/api/cars`;
+  async function fetchCars() {
+    const { data } = await axios.get(baseUrl);
+    console.log(data); // temp
+    setCars(data.data.items);
+    console.log('-----------------------------------');
+    console.log(cars);
   }
+  useEffect(() => {
+    fetchCars();
+  }, []);
   return (
     <Grid container spacing={2} mx={'100px'} my={'50px'}>
-      {authors.map(a => {
+      {cars.map(c => {
         return (
-          <Grid size={3} key={a.id}>
-            <CarCard item={a} />
+          <Grid size={3} key={c.id}>
+            <CarCard item={c} />
           </Grid>
         );
       })}
@@ -29,4 +40,4 @@ export default CarsPage = () => {
       </Box>
     </Grid>
   );
-};
+}
