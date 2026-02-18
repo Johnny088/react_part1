@@ -34,16 +34,6 @@ export default function CarCard({ item }) {
             textAlign: 'center',
           }}
         >
-          Year: {item.model}
-        </Typography>
-        <Typography
-          component="p"
-          sx={{
-            color: 'text.secondary',
-            fontSize: '20px',
-            textAlign: 'center',
-          }}
-        >
           Model: {item.name}
         </Typography>
         <Typography
@@ -100,14 +90,3 @@ export default function CarCard({ item }) {
     </Card>
   );
 }
-// "id": 16,
-// "name": "X3",
-// "year": 2022,
-// "volume": 3.8,
-// "price": 52619,
-// "color": "Black",
-// "desciption": "City car",
-// "image": null,
-// "manufacture": {
-//   "id": 4,
-//   "name": "Mercedes"
