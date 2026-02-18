@@ -1,8 +1,8 @@
 import axios from 'axios';
 export const loadCars = () => async dispatch => {
   const carUrl = import.meta.env.VITE_BASE_API_CAR_URL;
-  limit = 100;
-  currentPage = 1;
+  const limit = 100;
+  const currentPage = 1;
   try {
     const { data, status } = await axios.get(carUrl, {
       params: {
@@ -10,9 +10,8 @@ export const loadCars = () => async dispatch => {
         page: currentPage,
       },
     });
-    console.log(status);
     if (status === 200) {
-      dispatch({ type: loadCars, payload: data.data.items });
+      dispatch({ type: 'loadCars', payload: data.data.items });
       return true;
     } else {
       return false;

@@ -1,20 +1,12 @@
 import { Grid, IconButton, Box } from '@mui/material';
 import CarCard from './CarCard';
-// import axios from 'axios';
 import { useState, useEffect } from 'react';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
 import { useAction } from '../../store/hooks/useAction';
+import { useSelector } from 'react-redux';
 // ---------------------------------------------------------------------//
 export default function CarsPage() {
-  // const [cars, setCars] = useState([]);
-  // const baseUrl = `https://pd411.somee.com/api/cars`;
-  // async function fetchCars() {
-  //   // const { data } = await axios.get(baseUrl);
-  //   // console.log(data); // temp
-  //   // setCars(data.data.items);
-  //   // console.log('-----------------------------------');
-  //   // console.log(cars);
-  // }
+  const { cars } = useSelector(state => state.car);
   const { loadCars } = useAction();
   useEffect(() => {
     loadCars();
