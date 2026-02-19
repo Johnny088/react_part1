@@ -9,9 +9,10 @@ function App() {
     <>
       <DefaultLayout />
       <Routes>
-        <Route path="/" element={<DefaultLayout />} />
-        <Route index element={<MainPage />} />
-        <Route path="cars" element={<CarsPage />}></Route>
+        <Route path="/" element={<DefaultLayout />}>
+          <Route index element={<MainPage />} />
+          <Route path="cars" element={<CarsPage />}></Route>
+        </Route>
       </Routes>
     </>
   );
