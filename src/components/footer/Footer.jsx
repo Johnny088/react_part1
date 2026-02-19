@@ -1,15 +1,4 @@
 import './Footer.css';
-//   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-// export default Footer = () => {
-//   return (
-//     <div class="container">
-//       <i class="fa fa-apple" id="apple"></i>
-//       <i class="fa fa-twitter" id="twitter"></i>
-//       <i class="fa fa-github-square github" id="github"></i>
-//       <i class="fa fa-facebook-square" id="facebook"></i>
-//     </div>
-//   );
-// };
 import { useEffect } from 'react';
 
 const Footer = () => {
