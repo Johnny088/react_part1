@@ -1,9 +1,10 @@
 import { Grid, IconButton, Box } from '@mui/material';
 import CarCard from './CarCard';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
 import { useAction } from '../../store/hooks/useAction';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router';
 // ---------------------------------------------------------------------//
 export default function CarsPage() {
   const { cars } = useSelector(state => state.car);
@@ -27,11 +28,11 @@ export default function CarsPage() {
         alignItems="center"
         height="100%"
       >
-        {/* <Link to="/authors/create"> */}
-        <IconButton>
-          <AddReactionIcon sx={{ fontSize: '40px', color: 'green' }} />
-        </IconButton>
-        {/* </Link> */}
+        <Link to="/cars/create">
+          <IconButton>
+            <AddReactionIcon sx={{ fontSize: '40px', color: 'green' }} />
+          </IconButton>
+        </Link>
       </Box>
     </Grid>
   );

@@ -24,7 +24,7 @@ export default function CarCard({ item }) {
           component="div"
           sx={{ textAlign: 'center' }}
         >
-          Brand: {item.manufacture.name}
+          Brand: {item.manufacture?.name}
         </Typography>
         <Typography
           component="p"

@@ -3,15 +3,18 @@ import { Route, Routes } from 'react-router';
 import './App.css';
 import DefaultLayout from './components/layouts/DefaulltLoyout';
 import MainPage from './pages/mainPage/MainPage';
+import CarCreateForm from './pages/carsPages/CarCreateForm';
 
 function App() {
   return (
     <>
-      <DefaultLayout />
       <Routes>
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<MainPage />} />
-          <Route path="cars" element={<CarsPage />}></Route>
+          <Route path="cars">
+            <Route index element={<CarsPage />} />
+            <Route path="create" element={<CarCreateForm />} />
+          </Route>
         </Route>
       </Routes>
     </>
