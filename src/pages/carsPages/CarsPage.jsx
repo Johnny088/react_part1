@@ -1,4 +1,4 @@
-import { Grid, IconButton, Box } from '@mui/material';
+import { Grid, IconButton, Box, CircularProgress } from '@mui/material';
 import CarCard from './CarCard';
 import { useEffect } from 'react';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
@@ -7,11 +7,20 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router';
 // ---------------------------------------------------------------------//
 export default function CarsPage() {
-  const { cars } = useSelector(state => state.car);
+  const { cars, isLoaded } = useSelector(state => state.car);
   const { loadCars } = useAction();
   useEffect(() => {
     loadCars();
   }, []);
+
+  if (!isLoaded) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <CircularProgress enableTrackSlot size="3rem" sx={{ mt: 4 }} />
+      </Box>
+    );
+  }
+
   return (
     <Grid container spacing={2} mx={'100px'} my={'50px'}>
       {cars.map(c => {

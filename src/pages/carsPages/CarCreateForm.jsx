@@ -13,6 +13,7 @@ import { object, string, number } from 'yup';
 import { useAction } from '../../store/hooks/useAction';
 import { Select, MenuItem } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -56,27 +57,34 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
   },
 }));
 //               ------------------------------------ start -------------------------------------
+const initialValues = {
+  name: '',
+  volume: 0,
+  price: 0,
+  color: '',
+  description: '',
+  year: 2000,
+  image: '',
+  manufactureId: 0,
+};
+// ==========================================================
 const CarCreateForm = () => {
-  const { cars } = useSelector(state => state.car);
-  const { createCar } = useAction();
+  const { brands, isLoaded } = useSelector(state => state.brand);
+  const { createCar, loadBrands } = useAction();
+  useEffect(() => {
+    const fetchBrands = async () => {
+      await loadBrands();
+    };
+    if (!isLoaded) {
+      fetchBrands();
+    }
+  }, []);
 
   const navigate = useNavigate();
-  const initialValues = {
-    name: '',
-    volume: 0,
-    price: 0,
-    color: '',
-    description: '',
-    year: 2000,
-    image: '',
-    manufactureId: 0,
-  };
+
   // ---------------------------- validate ------------------------------------------------------
 
   const validate = object({
-    brand: string()
-      .required('required')
-      .max(100, 'max length can be 100 symbols'),
     name: string()
       .required('required')
       .max(100, 'max length can be 100 symbols'),
@@ -101,6 +109,7 @@ const CarCreateForm = () => {
   // -----------------------------------------------submit ----------------------------------------
   const handleSubmit = async newCar => {
     try {
+      console.log('submit');
       const result = await createCar(newCar);
       console.log(result);
       if (result) navigate('/cars');
@@ -114,7 +123,6 @@ const CarCreateForm = () => {
     onSubmit: handleSubmit,
     validationSchema: validate,
   });
-  // ----------------------------------------- getting errors ---------------------------------------
 
   return (
     <Box sx={{ marginBottom: '20px' }}>
@@ -144,64 +152,30 @@ const CarCreateForm = () => {
               gap: 2,
             }}
           >
-            {/* <FormControl>
-              <FormLabel htmlFor="brand">Brand:</FormLabel>
-              <TextField
-                id="brand"
-                name="brand"
-                placeholder="Brand"
-                autoComplete="brand"
-                fullWidth
-                variant="outlined"
-                type="text"
-                value={formik.values.brand}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {getError('brand')}
-            </FormControl> */}
-            {/* ----------------------------------------------------------------------------------------------------- */}
-            {/* <FormControl>
-              <FormLabel htmlFor="manufactureId">Brand</FormLabel>
-              <Select
-                id="manufactureId"
-                name="manufactureId"
-                value={formik.values.manufactureId}
-                onChange={formik.handleChange}
-              >
-                <MenuItem value={0}>Uknown</MenuItem>
-                {cars.map(manufacture => (
-                  <MenuItem key={manufacture.id} value={manufacture.id}>
-                    {manufacture.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl> */}
-            {/* ------------------------------------------------------------------------------------------- */}
+            {/* --------------------------------------- getting name of model instead brand---------------------------------------------------- */}
             <FormControl>
               <FormLabel htmlFor="manufactureId">Brand</FormLabel>
               <Select
                 id="manufactureId"
                 name="manufactureId"
                 value={formik.values.manufactureId}
-                onChange={e =>
-                  formik.setFieldValue('manufactureId', Number(e.target.value))
-                }
+                onChange={formik.handleChange}
               >
                 <MenuItem value={0}>Uknown</MenuItem>
-                {cars.map(car => (
-                  <MenuItem key={car.manufacture.id} value={car.manufacture.id}>
-                    {car.manufacture.name}
+                {brands.map(brand => (
+                  <MenuItem key={brand.id} value={brand.id}>
+                    {brand.name}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
+
             {/* ------------------------------------------------------------------------------------------- */}
             <FormControl>
               <FormLabel htmlFor="model">Model:</FormLabel>
               <TextField
                 id="model"
-                name="model"
+                name="name"
                 placeholder="Model"
                 autoComplete="model"
                 fullWidth
@@ -212,7 +186,7 @@ const CarCreateForm = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
-              {getError('model')}
+              {getError('name')}
             </FormControl>
             <FormControl>
               <FormLabel htmlFor="volume">Volume:</FormLabel>
@@ -302,7 +276,6 @@ const CarCreateForm = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
-              {getError('year')}
             </FormControl>
             <Button type="submit" fullWidth variant="contained" color="error">
               add

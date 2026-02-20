@@ -26,7 +26,7 @@ export const createCar = data => async dispatch => {
   const carUrl = import.meta.env.VITE_BASE_API_CAR_URL;
   try {
     const response = await axios.post(carUrl, data);
-    if (response.status >= 200 || response.status < 300) {
+    if (response.status >= 200 && response.status < 300) {
       dispatch({ type: 'createCar', payload: response.data });
       return true;
     } else {
