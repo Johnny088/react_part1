@@ -8,9 +8,11 @@ import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router';
-import { Formik, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { object, string, number } from 'yup';
 import { useAction } from '../../store/hooks/useAction';
+import { Select, MenuItem } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -55,17 +57,19 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }));
 //               ------------------------------------ start -------------------------------------
 const CarCreateForm = () => {
+  const { cars } = useSelector(state => state.car);
   const { createCar } = useAction();
 
   const navigate = useNavigate();
   const initialValues = {
-    brand: '',
-    model: '',
+    name: '',
     volume: 0,
     price: 0,
     color: '',
     description: '',
     year: 2000,
+    image: '',
+    manufactureId: 0,
   };
   // ---------------------------- validate ------------------------------------------------------
 
@@ -73,7 +77,7 @@ const CarCreateForm = () => {
     brand: string()
       .required('required')
       .max(100, 'max length can be 100 symbols'),
-    model: string()
+    name: string()
       .required('required')
       .max(100, 'max length can be 100 symbols'),
     volume: number().required('required').min(1.3, `can't be less than 1.3`),
@@ -98,6 +102,7 @@ const CarCreateForm = () => {
   const handleSubmit = async newCar => {
     try {
       const result = await createCar(newCar);
+      console.log(result);
       if (result) navigate('/cars');
     } catch (error) {
       console.log(error);
@@ -139,7 +144,7 @@ const CarCreateForm = () => {
               gap: 2,
             }}
           >
-            <FormControl>
+            {/* <FormControl>
               <FormLabel htmlFor="brand">Brand:</FormLabel>
               <TextField
                 id="brand"
@@ -154,7 +159,44 @@ const CarCreateForm = () => {
                 onBlur={formik.handleBlur}
               />
               {getError('brand')}
+            </FormControl> */}
+            {/* ----------------------------------------------------------------------------------------------------- */}
+            {/* <FormControl>
+              <FormLabel htmlFor="manufactureId">Brand</FormLabel>
+              <Select
+                id="manufactureId"
+                name="manufactureId"
+                value={formik.values.manufactureId}
+                onChange={formik.handleChange}
+              >
+                <MenuItem value={0}>Uknown</MenuItem>
+                {cars.map(manufacture => (
+                  <MenuItem key={manufacture.id} value={manufacture.id}>
+                    {manufacture.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl> */}
+            {/* ------------------------------------------------------------------------------------------- */}
+            <FormControl>
+              <FormLabel htmlFor="manufactureId">Brand</FormLabel>
+              <Select
+                id="manufactureId"
+                name="manufactureId"
+                value={formik.values.manufactureId}
+                onChange={e =>
+                  formik.setFieldValue('manufactureId', Number(e.target.value))
+                }
+              >
+                <MenuItem value={0}>Uknown</MenuItem>
+                {cars.map(car => (
+                  <MenuItem key={car.manufacture.id} value={car.manufacture.id}>
+                    {car.manufacture.name}
+                  </MenuItem>
+                ))}
+              </Select>
             </FormControl>
+            {/* ------------------------------------------------------------------------------------------- */}
             <FormControl>
               <FormLabel htmlFor="model">Model:</FormLabel>
               <TextField
@@ -166,7 +208,7 @@ const CarCreateForm = () => {
                 type="text"
                 variant="outlined"
                 required
-                value={formik.values.model}
+                value={formik.values.name}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
@@ -242,6 +284,21 @@ const CarCreateForm = () => {
                 fullWidth
                 type="number"
                 value={formik.values.year}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {getError('year')}
+            </FormControl>
+            <FormControl>
+              <FormLabel htmlFor="image">Image</FormLabel>
+              <TextField
+                id="image"
+                name="image"
+                placeholder="Image"
+                autoComplete="image"
+                fullWidth
+                type="text"
+                value={formik.values.image}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
