@@ -36,3 +36,19 @@ export const createCar = data => async dispatch => {
     throw error;
   }
 };
+
+export const removeCar = id => async dispatch => {
+  const carUrl = import.meta.env.VITE_BASE_API_CAR_URL;
+  try {
+    const response = await axios.delete(`${carUrl}/${id}`);
+    if (response.status >= 200 && response.status < 300) {
+      dispatch({ type: 'removeCar', payload: id });
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};

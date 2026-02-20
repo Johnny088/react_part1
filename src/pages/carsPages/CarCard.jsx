@@ -4,13 +4,25 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
 import IconButton from '@mui/material/IconButton';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useAction } from '../../store/hooks/useAction';
 
 export default function CarCard({ item }) {
+  const { removeCar } = useAction();
+  const deleteHadler = async () => {
+    try {
+      console.log(item.id);
+      await removeCar(item.id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Card sx={{ maxWidth: 345, height: '100%' }}>
       <CardActionArea>
         <CardMedia
           component="img"
+          sx={{ height: 200, objectFit: 'cover' }}
           image={
             item.image
               ? item.image
@@ -87,6 +99,12 @@ export default function CarCard({ item }) {
           Year: {item.year}
         </Typography>
       </CardActionArea>
+
+      <DeleteForeverIcon
+        color="error"
+        onClick={deleteHadler}
+        sx={{ cursor: 'pointer', fontSize: '30px' }}
+      />
     </Card>
   );
 }

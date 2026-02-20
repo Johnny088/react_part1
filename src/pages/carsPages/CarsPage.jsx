@@ -5,6 +5,7 @@ import AddReactionIcon from '@mui/icons-material/AddReaction';
 import { useAction } from '../../store/hooks/useAction';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router';
+
 // ---------------------------------------------------------------------//
 export default function CarsPage() {
   const { cars, isLoaded } = useSelector(state => state.car);

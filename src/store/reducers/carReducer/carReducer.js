@@ -11,9 +11,14 @@ export const carReducer = (state = initState, action) => {
       return {
         ...state,
         isLoaded: false,
-
         cars: [...state.cars, action.payload],
       };
+    case 'removeCar': {
+      return {
+        ...state,
+        cars: state.cars.filter(c => c.id != action.payload),
+      };
+    }
     default:
       return state;
   }
