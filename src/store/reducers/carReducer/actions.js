@@ -52,3 +52,21 @@ export const removeCar = id => async dispatch => {
     return false;
   }
 };
+
+export const updateCar = newCar => async dispatch => {
+  const carUrl = import.meta.env.VITE_BASE_API_CAR_URL;
+  try {
+    console.log(newCar);
+    let response = await axios.put(carUrl, newCar);
+    if (response.status >= 200 && response.status < 300) {
+      response = await axios.get(carUrl);
+      const { data } = response;
+      dispatch({ type: 'updateCar', payload: data.data.items });
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};

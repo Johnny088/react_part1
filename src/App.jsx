@@ -4,6 +4,7 @@ import './App.css';
 import DefaultLayout from './components/layouts/DefaulltLoyout';
 import MainPage from './pages/mainPage/MainPage';
 import CarCreateForm from './pages/carsPages/CarCreateForm';
+import CarUpdateForm from './pages/carsPages/CarUpdateForm';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="cars">
             <Route index element={<CarsPage />} />
             <Route path="create" element={<CarCreateForm />} />
+            <Route path="update/:id" element={<CarUpdateForm />} />
           </Route>
         </Route>
       </Routes>

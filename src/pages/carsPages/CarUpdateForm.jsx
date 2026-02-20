@@ -7,13 +7,14 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useFormik } from 'formik';
 import { object, string, number } from 'yup';
 import { useAction } from '../../store/hooks/useAction';
 import { Select, MenuItem } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -68,19 +69,11 @@ const initialValues = {
   manufactureId: 0,
 };
 // ==========================================================
-const CarCreateForm = () => {
-  const { brands, isLoaded } = useSelector(state => state.brand);
-  const { createCar, loadBrands } = useAction();
-  useEffect(() => {
-    const fetchBrands = async () => {
-      await loadBrands();
-    };
-    if (!isLoaded) {
-      fetchBrands();
-    }
-  }, []);
-
+const CarUpdateForm = () => {
+  const { updateCar, loadBrands } = useAction();
   const navigate = useNavigate();
+  const { brands, isLoaded } = useSelector(state => state.brand);
+  const { id } = useParams();
 
   // ---------------------------- validate ------------------------------------------------------
 
@@ -109,9 +102,8 @@ const CarCreateForm = () => {
   // -----------------------------------------------submit ----------------------------------------
   const handleSubmit = async newCar => {
     try {
-      console.log('submit');
       console.log(newCar);
-      const result = await createCar(newCar);
+      const result = await updateCar(newCar);
       console.log(result);
       if (result) navigate('/cars');
     } catch (error) {
@@ -125,6 +117,35 @@ const CarCreateForm = () => {
     validationSchema: validate,
   });
 
+  //   --------------------------------------------------use effect -----------------------------------------
+  useEffect(() => {
+    const fetchBrands = async () => {
+      await loadBrands();
+    };
+    if (!isLoaded) {
+      fetchBrands();
+    }
+  }, []);
+  useEffect(() => {
+    const getCar = async () => {
+      const carUrl = import.meta.env.VITE_BASE_API_CAR_URL;
+      const response = await axios.get(`${carUrl}/${id}`);
+      if (response.status >= 200 && response.status < 300) {
+        const { data } = response;
+        const oldDataCar = data.data;
+        if (oldDataCar.manufacture) {
+          data.data;
+          oldDataCar.manufactureId = oldDataCar.manufacture.id;
+        } else {
+          oldDataCar.manufactureId = 0;
+        }
+        await formik.setValues(oldDataCar, false);
+      } else {
+        navigate('/cars');
+      }
+    };
+    getCar();
+  }, []);
   return (
     <Box sx={{ marginBottom: '20px' }}>
       <SignInContainer
@@ -141,7 +162,7 @@ const CarCreateForm = () => {
               fontSize: 'clamp(2rem, 10vw, 2.15rem)',
             }}
           >
-            Adding the new Car
+            Updating the Car
           </Typography>
           <Box
             component="form"
@@ -235,7 +256,7 @@ const CarCreateForm = () => {
               {getError('color')}
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="description">Description</FormLabel>
+              <FormLabel htmlFor="desciption">Description</FormLabel>
               <TextField
                 id="desciption"
                 name="desciption"
@@ -279,7 +300,7 @@ const CarCreateForm = () => {
               />
             </FormControl>
             <Button type="submit" fullWidth variant="contained" color="error">
-              add
+              update
             </Button>
           </Box>
         </Card>
@@ -287,4 +308,4 @@ const CarCreateForm = () => {
     </Box>
   );
 };
-export default CarCreateForm;
+export default CarUpdateForm;

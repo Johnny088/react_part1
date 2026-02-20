@@ -6,6 +6,9 @@ import CardActionArea from '@mui/material/CardActionArea';
 import IconButton from '@mui/material/IconButton';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useAction } from '../../store/hooks/useAction';
+import UpdateIcon from '@mui/icons-material/Update';
+import { Box } from '@mui/material';
+import { Link } from 'react-router';
 
 export default function CarCard({ item }) {
   const { removeCar } = useAction();
@@ -94,17 +97,29 @@ export default function CarCard({ item }) {
             color: 'text.secondary',
             fontSize: '20px',
             textAlign: 'center',
+            marginBottom: '12px',
           }}
         >
           Year: {item.year}
         </Typography>
       </CardActionArea>
-
-      <DeleteForeverIcon
-        color="error"
-        onClick={deleteHadler}
-        sx={{ cursor: 'pointer', fontSize: '30px' }}
-      />
+      <Box sx={{ textAlign: 'center' }}>
+        <DeleteForeverIcon
+          color="error"
+          onClick={deleteHadler}
+          sx={{ cursor: 'pointer', fontSize: '30px', marginBottom: '12px' }}
+        />
+        <Link to={`/cars/update/${item.id}`}>
+          <UpdateIcon
+            sx={{
+              color: '#00a152',
+              fontSize: '30px',
+              marginBottom: '12px',
+              cursor: 'pointer',
+            }}
+          />
+        </Link>
+      </Box>
     </Card>
   );
 }
