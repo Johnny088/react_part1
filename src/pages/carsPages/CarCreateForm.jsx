@@ -7,13 +7,10 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import { useNavigate, useParams } from 'react-router';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { useAction } from '../../store/hooks/useAction';
-import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { Formik, useFormik } from 'formik';
 import { object, string, number } from 'yup';
+import { useAction } from '../../store/hooks/useAction';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -58,19 +55,17 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }));
 //               ------------------------------------ start -------------------------------------
 const CarCreateForm = () => {
-  const { createAuthor } = useAction();
-  // const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { id } = useParams();
+  const { createCar } = useAction();
 
+  const navigate = useNavigate();
   const initialValues = {
     brand: '',
     model: '',
-    volume: '',
-    price: '',
+    volume: 0,
+    price: 0,
     color: '',
     description: '',
-    year: '',
+    year: 2000,
   };
   // ---------------------------- validate ------------------------------------------------------
 
@@ -91,12 +86,7 @@ const CarCreateForm = () => {
       .min(2000, "are you'really? it should be replace")
       .max(2026, "your car probably isn't from future"),
   });
-  // -----------------------------------------------formik-----------------------------------------
-  const formik = useFormik({
-    initialValues: initialValues,
-    onSubmit: FormSubmitHandle,
-    validationSchema: validate,
-  });
+
   const getError = prop => {
     return formik.touched[prop] && formik.errors[prop] ? (
       <Typography sx={{ mx: 1, color: 'red' }} variant="h7">
@@ -105,10 +95,20 @@ const CarCreateForm = () => {
     ) : null;
   };
   // -----------------------------------------------submit ----------------------------------------
-  const FormSubmitHandle = async e => {
-    e.preventDefault();
+  const handleSubmit = async newCar => {
+    try {
+      const result = await createCar(newCar);
+      if (result) navigate('/cars');
+    } catch (error) {
+      console.log(error);
+    }
   };
-
+  // -----------------------------------------------formik-----------------------------------------
+  const formik = useFormik({
+    initialValues: initialValues,
+    onSubmit: handleSubmit,
+    validationSchema: validate,
+  });
   // ----------------------------------------- getting errors ---------------------------------------
 
   return (
