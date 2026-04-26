@@ -57,5 +57,5 @@ EXPOSE 3000
  
  
 # Run `serve` directly to serve the built app
-CMD ["npx", "serve", "-s", "dist", "-l", "3000"]
- 
+# CMD ["npx", "serve", "-s", "dist", "-l", "3000"]
+CMD ["/bin/sh", "-c", "sed -i \"s|VITE_BASE_API_CAR_URL|${VITE_BASE_API_CAR_URL}|g\" /usr/share/nginx/html/assets/*.js && sed -i \"s|VITE_BASE_API_MANUFACTURE_URL|${VITE_BASE_API_MANUFACTURE_URL}|g\" /usr/share/nginx/html/assets/*.js && nginx -g 'daemon off;'"]
